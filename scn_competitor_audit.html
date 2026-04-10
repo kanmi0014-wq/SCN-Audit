@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SCN — Competitor Audit</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #5B2D8E;
+    --purple-light: #7B3DB8;
+    --magenta: #D4208C;
+    --magenta-light: #E040A0;
+    --lavender: #EDE9F8;
+    --lavender-mid: #D8D0F2;
+    --white: #FFFFFF;
+    --off-white: #F8F7FC;
+    --charcoal: #1A1A2E;
+    --dark-mid: #2D2D4A;
+    --gray: #6B6B8A;
+    --gray-light: #E8E6F0;
+    --success: #1A9E6B;
+    --success-bg: #E6F7F1;
+    --warning: #B86B00;
+    --warning-bg: #FFF3E0;
+    --danger: #C0392B;
+    --danger-bg: #FDF0EF;
+    --info: #1565C0;
+    --info-bg: #E3F0FF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--charcoal);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* COVER */
+  .cover {
+    background: linear-gradient(135deg, var(--purple) 0%, var(--dark-mid) 50%, #1A0A2E 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,32,140,0.25) 0%, transparent 70%);
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -80px;
+    width: 350px; height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(91,45,142,0.4) 0%, transparent 70%);
+  }
+  .cover-tag {
+    display: inline-block;
+    background: rgba(212,32,140,0.2);
+    border: 1px solid rgba(212,32,140,0.5);
+    color: #F48CD4;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 32px;
+    width: fit-content;
+  }
+  .cover h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 56px;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.05;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .cover h1 span { color: #F48CD4; }
+  .cover-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.65);
+    font-weight: 300;
+    margin-bottom: 48px;
+    max-width: 480px;
+    position: relative;
+    z-index: 1;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 40px;
+    position: relative;
+    z-index: 1;
+  }
+  .cover-meta-item label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 4px;
+  }
+  .cover-meta-item span {
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+    font-weight: 500;
+  }
+  .cover-logo {
+    position: absolute;
+    top: 48px; right: 60px;
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    opacity: 0.9;
+    z-index: 1;
+  }
+  .cover-logo span { color: #F48CD4; }
+
+  /* PAGE LAYOUT */
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 64px 60px;
+  }
+
+  /* SECTION HEADERS */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    margin-top: 56px;
+  }
+  .section-header:first-child { margin-top: 0; }
+  .section-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--magenta);
+    letter-spacing: .1em;
+    background: rgba(212,32,140,0.08);
+    border: 1px solid rgba(212,32,140,0.2);
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--charcoal);
+  }
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--gray-light);
+  }
+
+  /* OBJECTIVE BLOCK */
+  .objective-block {
+    background: linear-gradient(135deg, var(--purple) 0%, var(--purple-light) 100%);
+    border-radius: 16px;
+    padding: 32px 36px;
+    color: white;
+    margin-bottom: 20px;
+  }
+  .objective-block h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    opacity: 0.7;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+  }
+  .objective-block p {
+    font-size: 15px;
+    line-height: 1.7;
+    opacity: 0.9;
+    font-weight: 300;
+  }
+  .source-note {
+    background: var(--lavender);
+    border-left: 3px solid var(--purple);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: var(--purple);
+    line-height: 1.6;
+  }
+  .source-note strong { font-weight: 500; }
+
+  /* COMPETITOR TYPE CARDS */
+  .type-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .type-card {
+    border-radius: 12px;
+    padding: 22px;
+    border: 1px solid transparent;
+  }
+  .type-card.direct { background: rgba(212,32,140,0.06); border-color: rgba(212,32,140,0.2); }
+  .type-card.indirect { background: rgba(184,107,0,0.06); border-color: rgba(184,107,0,0.2); }
+  .type-card.aspire { background: rgba(21,101,192,0.06); border-color: rgba(21,101,192,0.2); }
+  .type-card-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .direct .type-card-label { color: var(--magenta); }
+  .indirect .type-card-label { color: var(--warning); }
+  .aspire .type-card-label { color: var(--info); }
+  .type-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--charcoal);
+  }
+  .type-card p { font-size: 12px; color: var(--gray); line-height: 1.6; }
+  .type-names {
+    margin-top: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--charcoal);
+    line-height: 1.8;
+  }
+
+  /* FEATURE TABLE */
+  .feature-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--gray-light); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead { background: var(--charcoal); }
+  thead th {
+    padding: 12px 14px;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    text-align: left;
+    white-space: nowrap;
+  }
+  tbody tr { border-bottom: 1px solid var(--gray-light); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr.our-row { background: linear-gradient(90deg, rgba(91,45,142,0.06) 0%, rgba(212,32,140,0.04) 100%); }
+  tbody tr:hover { background: var(--lavender); transition: background 0.15s; }
+  tbody tr.our-row:hover { background: linear-gradient(90deg, rgba(91,45,142,0.1) 0%, rgba(212,32,140,0.08) 100%); }
+  td { padding: 12px 14px; vertical-align: middle; color: var(--charcoal); }
+  .co-name { font-weight: 500; display: block; }
+  .co-tag { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; margin-top: 3px; }
+  .tag-direct { background: rgba(212,32,140,0.1); color: var(--magenta); }
+  .tag-indirect { background: rgba(184,107,0,0.1); color: var(--warning); }
+  .tag-aspire { background: rgba(21,101,192,0.1); color: var(--info); }
+  .tag-us { background: rgba(91,45,142,0.1); color: var(--purple); }
+  .yes { color: var(--success); font-weight: 500; }
+  .no { color: var(--danger); font-weight: 500; }
+  .partial { color: var(--warning); font-weight: 500; }
+  .price-chip {
+    background: var(--charcoal);
+    color: white;
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .price-chip.ours {
+    background: linear-gradient(90deg, var(--purple), var(--magenta));
+  }
+
+  /* MESSAGING CARDS */
+  .msg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .msg-card {
+    border-radius: 12px;
+    padding: 22px;
+    border: 1px solid var(--gray-light);
+    background: white;
+  }
+  .msg-card.ours {
+    background: linear-gradient(135deg, var(--purple) 0%, var(--dark-mid) 100%);
+    border-color: transparent;
+    color: white;
+  }
+  .msg-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--charcoal);
+  }
+  .msg-card.ours h4 { color: rgba(255,255,255,0.7); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+  .msg-tagline {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--purple);
+    margin-bottom: 10px;
+  }
+  .msg-card.ours .msg-tagline { color: #F48CD4; font-size: 17px; }
+  .msg-card p { font-size: 12px; color: var(--gray); line-height: 1.65; }
+  .msg-card.ours p { color: rgba(255,255,255,0.7); }
+
+  /* BUSINESS MODEL TABLE */
+  .biz-table-wrap { border-radius: 12px; border: 1px solid var(--gray-light); overflow: hidden; }
+
+  /* POSITIONING GRID */
+  .pos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .pos-card {
+    border-radius: 12px;
+    padding: 22px;
+    border: 1px solid var(--gray-light);
+    background: white;
+  }
+  .pos-card.ours {
+    border: 2px solid var(--purple);
+    background: var(--lavender);
+  }
+  .pos-card h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--charcoal);
+  }
+  .pos-card.ours h4 { color: var(--purple); }
+  .pos-card p { font-size: 12px; color: var(--gray); line-height: 1.65; }
+  .pos-card.ours p { color: var(--dark-mid); }
+  .empty-badge {
+    display: inline-block;
+    background: var(--magenta);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  /* SWOT */
+  .swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .swot-card {
+    border-radius: 12px;
+    padding: 22px;
+    border-left: 4px solid transparent;
+    background: white;
+    border: 1px solid var(--gray-light);
+  }
+  .swot-card.S { border-left: 4px solid var(--success); }
+  .swot-card.W { border-left: 4px solid var(--danger); }
+  .swot-card.O { border-left: 4px solid var(--info); }
+  .swot-card.T { border-left: 4px solid var(--warning); }
+  .swot-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .S .swot-label { color: var(--success); }
+  .W .swot-label { color: var(--danger); }
+  .O .swot-label { color: var(--info); }
+  .T .swot-label { color: var(--warning); }
+  .swot-item {
+    font-size: 12px;
+    color: var(--charcoal);
+    line-height: 1.6;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--gray-light);
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .swot-item:last-child { border-bottom: none; }
+  .swot-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+  .S .swot-dot { background: var(--success); }
+  .W .swot-dot { background: var(--danger); }
+  .O .swot-dot { background: var(--info); }
+  .T .swot-dot { background: var(--warning); }
+  .source-inline {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    padding: 1px 5px;
+    border-radius: 3px;
+    vertical-align: middle;
+    margin-right: 2px;
+  }
+  .src-pitch { background: rgba(212,32,140,0.12); color: var(--magenta); }
+  .src-report { background: rgba(91,45,142,0.12); color: var(--purple); }
+
+  /* RECOMMENDATIONS */
+  .rec-list { display: flex; flex-direction: column; gap: 12px; }
+  .rec-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: white;
+    border-radius: 10px;
+    padding: 18px 20px;
+    border: 1px solid var(--gray-light);
+  }
+  .rec-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--lavender-mid);
+    min-width: 32px;
+    line-height: 1;
+    padding-top: 2px;
+  }
+  .rec-body strong {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--charcoal);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .rec-body p { font-size: 12px; color: var(--gray); line-height: 1.65; }
+
+  /* SCOPE NOTE */
+  .scope-note {
+    background: var(--lavender);
+    border: 1px solid var(--lavender-mid);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 12px;
+    color: var(--purple);
+    line-height: 1.65;
+    margin-top: 48px;
+  }
+  .scope-note strong { font-weight: 600; }
+
+  /* SOURCE KEY */
+  .source-key {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 24px;
+    font-size: 12px;
+    color: var(--gray);
+  }
+  .source-key-item { display: flex; align-items: center; gap: 6px; }
+
+  /* FOOTER */
+  .footer {
+    background: var(--charcoal);
+    padding: 32px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 64px;
+  }
+  .footer-brand {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+  }
+  .footer-brand span { color: #F48CD4; }
+  .footer-note { font-size: 12px; color: rgba(255,255,255,0.4); }
+
+  /* DIVIDER */
+  .page-divider { border: none; border-top: 1px solid var(--gray-light); margin: 48px 0; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-logo">Stardust<span>.</span></div>
+  <div class="cover-tag">Competitive Intelligence</div>
+  <h1>Competitor<br><span>Audit</span></h1>
+  <p class="cover-sub">A structured analysis of the competitive landscape for Stardust Creator Network — Africa's creator business operating system.</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <label>Prepared by</label>
+      <span>Design & Strategy Team</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>Data sources</label>
+      <span>SCN Pitch Deck · Nigeria Creator Economy Report 2025</span>
+    </div>
+    <div class="cover-meta-item">
+      <label>Scope</label>
+      <span>Product · Positioning · Pricing · SWOT</span>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- SOURCE KEY -->
+  <div class="source-key">
+    <strong style="color:var(--charcoal);">Source key:</strong>
+    <div class="source-key-item"><span class="source-inline src-pitch">PITCH</span> SCN Pre-Seed Pitch Deck</div>
+    <div class="source-key-item"><span class="source-inline src-report">REPORT</span> Nigeria Creator Economy Report 2025 (Communiqué × NCAC × TM Global)</div>
+  </div>
+
+  <!-- 1. OBJECTIVE -->
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <span class="section-title">Audit Objective</span>
+    <div class="section-rule"></div>
+  </div>
+  <div class="objective-block">
+    <h3>What this audit is for</h3>
+    <p>Evaluate the competitive landscape for Stardust Creator Network (SCN) — a creator business operating system targeting Nigerian and emerging market creators. The audit maps market positioning, feature coverage, pricing strategy, and strategic differentiation relative to direct, indirect, and aspirational competitors.</p>
+  </div>
+  <div class="source-note">
+    <strong>Data sources used:</strong> SCN Pre-Seed Pitch Deck ($500K SAFE · $10M cap round) and the Nigeria Creator Economy Report 2025 (Communiqué × NCAC × TM Global). Sections requiring UX testing, SEO traffic data, or customer review scores are excluded — no reliable data was available for those areas.
+  </div>
+
+  <!-- 2. COMPETITOR IDENTIFICATION -->
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <span class="section-title">Competitor Identification</span>
+    <div class="section-rule"></div>
+  </div>
+  <div class="type-grid">
+    <div class="type-card direct">
+      <div class="type-card-label">Direct</div>
+      <h4>Same problem, overlapping features</h4>
+      <p>Platforms creators currently use as a substitute for SCN — community, monetisation, brand deals, or analytics tools.</p>
+      <div class="type-names">Kajabi · Stan Store · Beacons.ai<br>Selar · Circle · Skool</div>
+    </div>
+    <div class="type-card indirect">
+      <div class="type-card-label">Indirect</div>
+      <h4>Same problem, different model</h4>
+      <p>Human-led or single-function alternatives. Creators use these today but they don't constitute a full business OS.</p>
+      <div class="type-names">Nigerian agencies · Bumpa<br>Paystack (standalone) · Gumroad</div>
+    </div>
+    <div class="type-card aspire">
+      <div class="type-card-label">Aspirational</div>
+      <h4>Best-in-class to learn from</h4>
+      <p>Full infrastructure stacks with embedded finance and creator data intelligence — what SCN could grow into at scale.</p>
+      <div class="type-names">Grin / AspireIQ · Passes · Patreon</div>
+    </div>
+  </div>
+
+  <!-- 3. FEATURE COMPARISON -->
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <span class="section-title">Feature Comparison Matrix</span>
+    <div class="section-rule"></div>
+  </div>
+  <p style="font-size:13px;color:var(--gray);margin-bottom:16px;">Based on publicly stated product capabilities. <span class="source-inline src-pitch">PITCH</span> SCN features from pitch deck. <span class="source-inline src-report">REPORT</span> Market context from Nigeria Creator Economy Report 2025.</p>
+  <div class="feature-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:17%">Platform</th>
+          <th>Community</th>
+          <th>Brand deals</th>
+          <th>Local payments</th>
+          <th>Analytics</th>
+          <th>Embedded finance</th>
+          <th>Monthly price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="our-row">
+          <td><span class="co-name">SCN (Stardust)</span><span class="co-tag tag-us">Our product</span></td>
+          <td><span class="yes">✓ Yes</span></td>
+          <td><span class="yes">✓ Yes — live</span></td>
+          <td><span class="yes">✓ Paystack / ₦</span></td>
+          <td><span class="partial">~ Roadmap</span></td>
+          <td><span class="partial">~ Roadmap</span></td>
+          <td><span class="price-chip ours">₦5k – ₦17.5k</span></td>
+        </tr>
+        <tr>
+          <td><span class="co-name">Kajabi</span><span class="co-tag tag-direct">Direct</span></td>
+          <td><span class="yes">✓ Yes</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="no">✗ USD only</span></td>
+          <td><span class="yes">✓ Yes</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="price-chip">~$149/mo</span></td>
+        </tr>
+        <tr>
+          <td><span class="co-name">Stan Store</span><span class="co-tag tag-direct">Direct</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="no">✗ USD only</span></td>
+          <td><span class="partial">~ Basic only</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="price-chip">$0 – $29/mo</span></td>
+        </tr>
+        <tr>
+          <td><span class="co-name">Beacons.ai</span><span class="co-tag tag-direct">Direct</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="yes">✓ US brands only</span></td>
+          <td><span class="no">✗ USD only</span></td>
+          <td><span class="yes">✓ Yes</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="price-chip">$0 – $10/mo</span></td>
+        </tr>
+        <tr>
+          <td><span class="co-name">Circle</span><span class="co-tag tag-direct">Direct</span></td>
+          <td><span class="yes">✓ Yes</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="no">✗ USD only</span></td>
+          <td><span class="partial">~ Basic only</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="price-chip">$49 – $99/mo</span></td>
+        </tr>
+        <tr>
+          <td><span class="co-name">Skool</span><span class="co-tag tag-direct">Direct</span></td>
+          <td><span class="yes">✓ Yes</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="no">✗ USD only</span></td>
+          <td><span class="partial">~ Basic only</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="price-chip">$99/mo</span></td>
+        </tr>
+        <tr>
+          <td><span class="co-name">Selar</span><span class="co-tag tag-indirect">Indirect</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="yes">✓ Paystack / ₦</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="price-chip">0 – 10% per sale</span></td>
+        </tr>
+        <tr>
+          <td><span class="co-name">NG Agencies</span><span class="co-tag tag-indirect">Indirect</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="yes">✓ Yes — manual</span></td>
+          <td><span class="yes">✓ Local</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="price-chip">15–30% commission</span></td>
+        </tr>
+        <tr>
+          <td><span class="co-name">Grin / AspireIQ</span><span class="co-tag tag-aspire">Aspirational</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="yes">✓ Brand-side</span></td>
+          <td><span class="no">✗ USD only</span></td>
+          <td><span class="yes">✓ Yes</span></td>
+          <td><span class="no">✗ No</span></td>
+          <td><span class="price-chip">Enterprise</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="page-divider">
+
+  <!-- 4. MESSAGING -->
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <span class="section-title">Messaging & Value Proposition</span>
+    <div class="section-rule"></div>
+  </div>
+  <div class="msg-grid">
+    <div class="msg-card">
+      <h4>Kajabi</h4>
+      <div class="msg-tagline">"The only platform you need."</div>
+      <p>Promises to replace multiple tools. Positioned around knowledge commerce and passive income. Polished and aspirational — but speaks to a Western creator building courses, not a Nigerian creator trying to land a brand deal.</p>
+    </div>
+    <div class="msg-card">
+      <h4>Stan Store</h4>
+      <div class="msg-tagline">"One link for everything."</div>
+      <p>Frictionless, Gen Z-first messaging. Optimised for fast setup. No business depth — treats a creator's income as a storefront problem, not an infrastructure problem.</p>
+    </div>
+    <div class="msg-card">
+      <h4>Selar</h4>
+      <div class="msg-tagline">"Sell digital products in Africa."</div>
+      <p>Africa-aware, Naira-first, and clear. But the message stops at the sale — there's no narrative around growing a creator business or building brand relationships. <span class="source-inline src-report">REPORT</span> Selar cited as a checkout-only tool in the market report.</p>
+    </div>
+    <div class="msg-card ours">
+      <h4>SCN — Stardust Creator</h4>
+      <div class="msg-tagline">"The operating system for modern creators."</div>
+      <p>Positions creators as businesses, not hobbyists. Africa-first framing with global ambition. Uniquely addresses the infrastructure gap rather than a feature gap. <span class="source-inline src-pitch" style="background:rgba(244,140,212,0.2);color:#F48CD4;">PITCH</span> "Creators are building real businesses but they just don't have business infrastructure."</p>
+    </div>
+  </div>
+
+  <!-- 5. BUSINESS MODEL -->
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <span class="section-title">Pricing & Business Model</span>
+    <div class="section-rule"></div>
+  </div>
+  <div class="biz-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:14%">Platform</th>
+          <th style="width:16%">Model type</th>
+          <th style="width:26%">How they charge</th>
+          <th>Strategic implication for SCN</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="our-row">
+          <td><strong>SCN</strong></td>
+          <td>Subscription + commission</td>
+          <td>₦5k/mo (community) · ₦15k/mo (OS) · ₦17.5k/mo (bundle) + 2% transaction fee + brand deal commission</td>
+          <td><span class="source-inline src-pitch">PITCH</span> Multi-layer model ties SCN's growth directly to creator success — subscriptions give predictable ARR, commissions scale with deal volume.</td>
+        </tr>
+        <tr>
+          <td><strong>Kajabi</strong></td>
+          <td>Flat subscription</td>
+          <td>$149–$399/mo. No transaction fees. No commission layer.</td>
+          <td>Premium price locks out most Nigerian creators. SCN's ₦17.5k bundle is ~11× cheaper at current exchange rate — pricing is a genuine structural advantage.</td>
+        </tr>
+        <tr>
+          <td><strong>Selar</strong></td>
+          <td>Commission only</td>
+          <td>Free to list. Up to 10% per sale on paid plans. No subscription.</td>
+          <td>Zero upfront cost lowers the barrier. SCN's ₦5k entry tier must demonstrate value fast enough to justify switching from Selar's free model.</td>
+        </tr>
+        <tr>
+          <td><strong>NG Agencies</strong></td>
+          <td>Commission / retainer</td>
+          <td>15–30% of brand deal value. High-touch, relationship-driven.</td>
+          <td><span class="source-inline src-pitch">PITCH</span> SCN replaces the agency model with software. A ₦17.5k/mo subscription beats losing 15–30% on every deal — and it scales without extra headcount.</td>
+        </tr>
+        <tr>
+          <td><strong>Circle / Skool</strong></td>
+          <td>Flat subscription</td>
+          <td>$49–$99/mo flat. No commission. No brand deal layer.</td>
+          <td>Similar monthly cost concept but USD-priced. Naira pricing removes FX friction that makes these tools inaccessible for most Nigerian creators.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="page-divider">
+
+  <!-- 6. POSITIONING -->
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <span class="section-title">Market Positioning</span>
+    <div class="section-rule"></div>
+  </div>
+  <p style="font-size:13px;color:var(--gray);margin-bottom:16px;">Mapped across two axes: <strong style="color:var(--charcoal)">scope of solution</strong> (single-feature vs full-stack) and <strong style="color:var(--charcoal)">market fit</strong> (Western-default vs emerging-market-native). Positions drawn from stated product capabilities in source documents.</p>
+  <div class="pos-grid">
+    <div class="pos-card">
+      <h4>Full-stack · Western-default</h4>
+      <p>Kajabi owns this corner. Complete feature set and strong brand — but built for USD-paying creators. Pricing and payment infrastructure structurally exclude African creators.</p>
+    </div>
+    <div class="pos-card">
+      <h4>Single-feature · Western-default</h4>
+      <p>Stan Store, Circle, Skool, Beacons.ai. Each solves one piece — storefront, community, or brand matching — but assumes US/European creator context and payment systems.</p>
+    </div>
+    <div class="pos-card">
+      <h4>Single-feature · Emerging-market-native</h4>
+      <p>Selar owns this clearly. Naira-native, Paystack-integrated, but intentionally narrow. Checkout only. <span class="source-inline src-report">REPORT</span> Selar referenced as one of Africa's leading creator monetisation tools — but limited in scope.</p>
+    </div>
+    <div class="pos-card ours">
+      <div class="empty-badge">SCN's target position — currently empty</div>
+      <h4>Full-stack · Emerging-market-native</h4>
+      <p>No platform is currently offering an integrated creator OS that is locally priced, Naira/Paystack-native, and includes brand deal infrastructure for African markets. <span class="source-inline src-pitch">PITCH</span> "The creator supply curve is running ahead. SCN OS exists to close that gap."</p>
+    </div>
+  </div>
+
+  <!-- 7. SWOT -->
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <span class="section-title">SWOT Analysis — SCN vs the Field</span>
+    <div class="section-rule"></div>
+  </div>
+  <div class="swot-grid">
+    <div class="swot-card S">
+      <div class="swot-label">Strengths</div>
+      <div class="swot-item"><div class="swot-dot"></div><div><span class="source-inline src-pitch">PITCH</span> Only full-stack creator OS targeting African markets — no competitor occupies this position</div></div>
+      <div class="swot-item"><div class="swot-dot"></div><div><span class="source-inline src-pitch">PITCH</span> Already generating ~₦7.5M/month in brand deal commissions before the product launches</div></div>
+      <div class="swot-item"><div class="swot-dot"></div><div><span class="source-inline src-pitch">PITCH</span> 1,200+ creators in network; 75+ already monetised via real brand deals last quarter</div></div>
+      <div class="swot-item"><div class="swot-dot"></div><div>Paystack-native payments — zero FX friction for Nigerian creators; Kajabi and Stan Store can't match this</div></div>
+      <div class="swot-item"><div class="swot-dot"></div><div>Pricing is accessible — bundle tier is ~11× cheaper than Kajabi at current exchange rate</div></div>
+      <div class="swot-item"><div class="swot-dot"></div><div>Community-led GTM lowers customer acquisition cost versus paid acquisition models</div></div>
+    </div>
+    <div class="swot-card W">
+      <div class="swot-label">Weaknesses</div>
+      <div class="swot-item"><div class="swot-dot"></div><div><span class="source-inline src-pitch">PITCH</span> SCN OS product is not yet live — current traction is pre-product; demand is validated but product-market fit is unproven</div></div>
+      <div class="swot-item"><div class="swot-dot"></div><div><span class="source-inline src-pitch">PITCH</span> Analytics and embedded finance are roadmap items — two of the most defensible features are not yet built</div></div>
+      <div class="swot-item"><div class="swot-dot"></div><div>Three-tier pricing structure (community / OS / bundle) may be complex to communicate to first-time creators</div></div>
+      <div class="swot-item"><div class="swot-dot"></div><div>No documented creator retention data yet — churn risk is unknown ahead of product launch</div></div>
+    </div>
+    <div class="swot-card O">
+      <div class="swot-label">Opportunities</div>
+      <div class="swot-item"><div class="swot-dot"></div><div><span class="source-inline src-report">REPORT</span> 6.3M+ Nigerian creators with 1,000+ followers on TikTok alone — large, monetisation-ready market that is structurally underserved</div></div>
+      <div class="swot-item"><div class="swot-dot"></div><div><span class="source-inline src-report">REPORT</span> 56% of Nigerian creators earn under $100/month — income infrastructure is an urgent and felt need, not a nice-to-have</div></div>
+      <div class="swot-item"><div class="swot-dot"></div><div><span class="source-inline src-report">REPORT</span> Government-backed creator funding (CEDF, iDICE worth $617M) creates institutional demand and opens doors for partnerships</div></div>
+      <div class="swot-item"><div class="swot-dot"></div><div><span class="source-inline src-pitch">PITCH</span> Roadmap targets two new African markets by month 18 — first-mover advantage in underserved markets beyond Nigeria</div></div>
+    </div>
+    <div class="swot-card T">
+      <div class="swot-label">Threats</div>
+      <div class="swot-item"><div class="swot-dot"></div><div>Beacons.ai or Stan Store could localise for Africa with existing product, brand and funding — and arrive faster than SCN can ship its full stack</div></div>
+      <div class="swot-item"><div class="swot-dot"></div><div>Selar could expand beyond checkout — they already own the Nigeria-native payments trust</div></div>
+      <div class="swot-item"><div class="swot-dot"></div><div>Nigerian agencies may resist displacement — they hold existing brand relationships that SCN's software needs to access</div></div>
+      <div class="swot-item"><div class="swot-dot"></div><div><span class="source-inline src-report">REPORT</span> 56% of creators earning under $100/month limits near-term ability to sustain subscription fees without clear income uplift</div></div>
+    </div>
+  </div>
+
+  <!-- 8. RECOMMENDATIONS -->
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <span class="section-title">Strategic Recommendations</span>
+    <div class="section-rule"></div>
+  </div>
+  <div class="rec-list">
+    <div class="rec-item">
+      <div class="rec-num">01</div>
+      <div class="rec-body">
+        <strong>Lead with brand deals — it's the only thing no competitor offers Nigerian creators.</strong>
+        <p>Community tools exist. Checkout tools exist. Nothing gives Nigerian creators direct brand deal access with local payment rails. That is SCN's sharpest edge and it should be the first thing any creator sees — not a feature buried in the pitch.</p>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-num">02</div>
+      <div class="rec-body">
+        <strong>Position SCN as what creators graduate to from Selar.</strong>
+        <p>Many target creators are already on Selar. The story to tell is clear: Selar gets you your first sale, SCN gets you your first brand deal and a full income profile. Don't fight Selar for checkout customers — absorb them as top-of-funnel leads.</p>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-num">03</div>
+      <div class="rec-body">
+        <strong>Ship the analytics layer early — it is both a product feature and a moat.</strong>
+        <p><span class="source-inline src-pitch">PITCH</span> Revenue analytics is the data layer that eventually enables embedded finance and brand-side intelligence. The longer it stays on the roadmap, the more time Beacons.ai has to localise for Africa and close the gap.</p>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-num">04</div>
+      <div class="rec-body">
+        <strong>Publish creator income outcomes — numbers turn trust into conversion.</strong>
+        <p><span class="source-inline src-pitch">PITCH</span> 75+ creators monetised via brand deals last quarter is a compelling proof point. But it needs a number behind it — average deal size, income lift, time to first deal. Data like that displaces agencies and justifies the subscription better than any copywriting.</p>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-num">05</div>
+      <div class="rec-body">
+        <strong>Treat the ₦5k community tier as a funnel, not a product destination.</strong>
+        <p>Community-only subscribers need a visible, short path to the bundle. Without that path clearly designed, the community tier becomes a leaky bucket that undercuts ARR growth rather than feeding it.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCOPE NOTE -->
+  <div class="scope-note">
+    <strong>Note on audit scope:</strong> This audit covers product features, business model, messaging, positioning, and SWOT analysis — all areas where the source documents provide evidence. UX/UI heuristic evaluation, SEO and traffic data (SEMrush/SimilarWeb), customer review scores (G2/Capterra), technology stack analysis, and performance benchmarking are <strong>not included</strong>. Filling those sections accurately would require direct product access, testing sessions, and third-party data tools. Any data in those areas would be assumptions, not findings.
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-brand">Stardust<span>.</span> Creator Network</div>
+  <div class="footer-note">Competitor Audit · Based on SCN Pitch Deck & Nigeria Creator Economy Report 2025</div>
+</div>
+
+</body>
+</html>
